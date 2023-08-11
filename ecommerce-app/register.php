@@ -480,7 +480,7 @@
                                         your order status and history.
                                     </p>
                                 </div>
-                                <form action="./backend/auth/register.php" class="register-form needs-validation" >
+                                <form action="./backend/auth/register.php" class="register-form needs-validation" enctype="multipart/form-data" method="post" >
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label>First Name *</label>
@@ -493,6 +493,7 @@
                                             <div class="invalid-feedback">Please enter your last name.</div>
                                         </div>
                                     </div>
+                                    
                                     <div class="row">
                                         <div class="form-group col-md-6">
                                             <label>Email Address *</label>
@@ -516,10 +517,18 @@
                                             <label>Cornfirm password *</label>
                                             <input type="password" class="form-control" placeholder="" required   name="confirm-password" />
                                             <div class="invalid-feedback">Please confirm your password.</div>
-                                        </div>
+                                        </div>                                       
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label >Profile Picture *</label>
+                                            <input  type="file" name="filetoupload"  required/>
+                                            <div class="invalid-feedback">Please enter your Profile Picture</div>
+                                        </div> 
                                     </div>
                                     <div class="form-group button-action mt-1 mt-sm-5 clearfix text-center">
-                                        <button type="submit" class="account-create btn btn-secondary">Create An Acoount</button>
+                                        <button type="submit" class="account-create btn btn-secondary" name="submit">Create An Acoount</button>
                                     </div>
                                 </form>
                             </div>

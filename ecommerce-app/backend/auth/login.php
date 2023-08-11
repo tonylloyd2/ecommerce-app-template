@@ -40,13 +40,15 @@ if ($result->num_rows === 1) {
         // echo "<script>alert('".$_SESSION['email']."')</script>";
         exit(); // Always use exit() after header redirect to prevent further code execution
     } else {
-        echo "<script>alert('invalid email or password')</script>";
+        echo "<script>alert('invalid email or password')
+        location.replace('../../login.php');
+        </script>";
 
     }
 } else {
     echo "<script>
     alert('invalid email or password');
-    location.replace();
+    location.replace('../../login.php');
     </script>";
 }
 

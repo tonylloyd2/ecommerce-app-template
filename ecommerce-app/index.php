@@ -15,6 +15,7 @@ if (isset($_SESSION['email'])){
       // User with the given email exists
       $row = $result->fetch_assoc();
       $name = $row['firstname'] . " " . $row['lastname'];
+      $image = $row['image'];
   }
   
   

@@ -11,31 +11,90 @@ function encryptPassword($password)
 }
 
 // Retrieve the form data and escape it to prevent SQL injection
-$email = $_GET['email'];
-$firstname = $_GET['first-name'];
-$lastname = $_GET['last-name'];
-$phone = $_GET['phone'];
-$password = $_GET['password'];
+if(isset($_POST["submit"])) { 
 
-// Encrypt the password
-$encryptedPassword = encryptPassword($password);
 
-// Prepare and execute the SQL query
-$sql = "INSERT INTO users (email, firstname,lastname,phone, password) VALUES (?,?,?,?,?)";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("sssss", $email, $firstname,$lastname,$phone ,  $encryptedPassword);
-$stmt->execute();
 
-// Check if the insertion was successful
-if ($stmt->affected_rows > 0) {
-    echo "Data inserted successfully";
-    # set the session to email
-    // $_SESSION['email'] = $email;
-    # redirect to dashboard.php
-    header("Location: ../../login.php");
-} else {
-    echo "Failed to insert data";
+$email = $_POST['email'];
+$firstname = $_POST['first-name'];
+$lastname = $_POST['last-name'];
+$phone = $_POST['phone'];
+$password =   $_POST['password'];
+$Encryptedpassword =  encryptPassword($password);
+
+
+$target_dir = "../../image/";
+$target_file = $target_dir . basename($_FILES["filetoupload"]["name"]);
+$uploadOk = 1;
+$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+// Check if image file is a actual image or fake image
+// if(isset($_POST["submit"])) {
+//   $check = getimagesize($_FILES["image"]["tmp_name"]);
+//   if($check !== false) {
+//     echo "File is an image - " . $check["mime"] . ".";
+//     $uploadOk = 1;
+//   } else {
+//     echo "File is not an image.";
+//     $uploadOk = 0;
+//   }
+// }
+
+// Check if file already exists
+if (file_exists($target_file)) {
+  echo "Sorry, file already exists.";
+  $uploadOk = 0;
 }
 
+// Check file size
+if ($_FILES["filetoupload"]["size"] > 500000) {
+  echo "Sorry, your file is too large.";
+  $uploadOk = 0;
+}
+
+// Allow certain file formats
+// if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+// && $imageFileType != "gif" ) {
+//   echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+//   $uploadOk = 0;
+// }
+
+// Check if $uploadOk is set to 0 by an error
+if ($uploadOk == 0) {
+  echo "Sorry, your file was not uploaded.";
+// if everything is ok, try to upload file
+} else {
+  if (move_uploaded_file($_FILES["filetoupload"]["tmp_name"], $target_file)) {
+    echo "The file ". htmlspecialchars( basename( $_FILES["filetoupload"]["name"])). " has been uploaded.";
+    // insert into database
+    $sql = "INSERT INTO users (email, firstname, lastname, phone, password, image) VALUES ('$email', '$firstname', '$lastname', '$phone', '$Encryptedpassword', '$target_file')";
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+        header("Location: ../../login.php");
+      } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+      }
+      
+      $conn->close();
+
+  } else {
+    echo "Sorry, there was an error uploading your file.";
+  }
+}
+
+
+
+
+
+
+
+
+
+
+// Encrypt the password
+
+
+
 // Close the statement
-$stmt->close();
+// $stmt->close();
+}
