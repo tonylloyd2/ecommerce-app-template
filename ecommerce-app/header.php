@@ -49,11 +49,10 @@
                                         <li><a href="login.php">Login</a></li>
                                         <li><a href="register.php">Create Account</a></li>
                                         <li><a href="product-details.php">Hot Items in town </a></li>
-                                        <li><a href="seller/index.php">Are you a seller ?</a></li>
+                                        <li><a href="seller/home.php">Are you a seller ?</a></li>
                                         <?php }else {?>
-                                        <li><a href="seller/index.php">Are you a seller ?</a></li>
+                                        <li><a href="seller/home.php">Are you a seller ?</a></li>
                                         <li><a href="my-account.php">Hello <?php echo $name ; ?></a></li>
-
                                         <?php } ?>
                                     </ul>
                                 </div>
@@ -62,21 +61,26 @@
                                 <p class="m-0">Free shipping on All Orders. No Minimum Purchase.</p>
                             </div>
                             <div class="col-10 col-sm-9 col-md-4 pl-0 text-right">
-                                <div class="currency-picker">
-                                    <select>
-                                        <option value="USD" selected>USD</option>
-                                        <option value="EUR">EUR</option>
-                                        <option value="CAD">CAD</option>
-                                        <option value="GBP">GBP</option>
-                                        <option value="INR">INR</option>
-                                    </select>
-                                </div>
+                                <?php
+                                    if (isset($_SESSION['email'])){
+                                        # code...
+                                ?>
                                 <div class="phone-number">
-                                    <a href="tel:+011234567890">
-                                        <i class="icon fa fa-phone"></i>
-                                        <span class="call">(+01) 123 456 7890</span>
+                                    <a href="./backend/auth/logout.php">                                        
+                                        <span class="call"><?php echo $_SESSION['email'] ?></span>
                                     </a>
                                 </div>
+                                <?php   }
+                                else {
+                                    ?>
+                                <div class="phone-number">
+                                    <a href="./login.php">                                        
+                                        <span class="call">LOGIN</span>
+                                    </a>
+                                </div>
+                                    <?php
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

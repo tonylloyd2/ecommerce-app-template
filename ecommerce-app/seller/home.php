@@ -1,3 +1,34 @@
+<?php
+session_start();
+require "../backend/connector/conn.php";
+
+if (isset($_SESSION['email'])) {
+    $session_var = $_SESSION['email'];
+    $sql = "SELECT * FROM sellers WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $session_var);
+    $stmt->execute();
+
+    // Get the result
+    $result = $stmt->get_result();
+    if ($result->num_rows === 1) {
+        // User with the given email exists
+        $row = $result->fetch_assoc();
+        $name = $row['first_name'] . " " . $row['last_name'];
+        $image = $row['profile'];
+        $orgname = $row['bussiness_name'];
+    }
+
+
+} else {
+    echo "<script>
+    alert('you are not logged in');
+location.replace('./login.php');
+    </script>";
+
+}
+
+?>
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -8,7 +39,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content=" " />
     <!-- Title -->
-    <title>Login - Posh Auto Parts eCommerce Bootstrap 4 Html Template</title>
+    <title><?php echo $name; ?></title>
     <!-- Favicon  -->
     <link rel="shortcut icon" href="../assets/images/fevicon.png" />
 
@@ -37,59 +68,20 @@
         <!-- Start Breadcrumb -->
         <div class="breadcrumbs text-center">
             <div class="container">
-                <h1>Login As Seller</h1>
+                <h1 style="color: green;"><?php echo $name."'s  Selling DashBoard" ?></h1>
                 <ul class="breadcrumb bg-transparent m-0 p-0 justify-content-center">
-                    <li class="breadcrumb-item"><a href="index.php" title="Home">Home</a></li>
-                    <li class="breadcrumb-item active">Login Seller</li>
+                    
+                    <li class="breadcrumb-item active">DashBoard</li>
+                    <li class="breadcrumb-item"><a href="./upload.php" title="Home">Upload Product</a></li>
+                    <li class="breadcrumb-item"><a href="./products.php" title="Home">Products</a></li>
+                    <li class="breadcrumb-item" ><a href="../backend/seller/auth/logout.php" title="Logout" style="color: red;">logout</a></li>
+
                 </ul>
             </div>
         </div>
         <!-- End Breadcrumb -->
 
-        <!-- Start Login Account -->
-        <div class="login-account">
-            <div class="container">
-                <div class="row row-sp">
-                    <div class="col-sp col-12 col-sm-12 col-md-12 col-lg-6 offset-lg-3">
-                        <div class="page-title text-center">
-                            <p class="subtitle mb-0">If you have an account with us, log in using your email
-                                address.</p>
-                        </div>
 
-                        <form action="../backend/seller/auth/login.php" class="login-form needs-validation">
-                            <div class="form-group">
-                                <label>Email Address *</label>
-                                <input type="email" class="form-control" placeholder="" required name="email" />
-                                <div class="invalid-feedback">Please enter your email.</div>
-                            </div>
-                            <div class="form-group">
-                                <label>Password *</label>
-                                <input type="password" class="form-control" placeholder="" required name="password" />
-                                <div class="invalid-feedback">Please enter your password.</div>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="dropdownCheck" />
-                                    <label class="form-check-label ml-3 mb-0" for="dropdownCheck">Remeber
-                                        Me!</label>
-                                </div>
-                            </div>
-                            <div class="form-group button-action clearfix text-center">
-                                <div class="login-forget pull-left">
-                                    <button type="submit" class="btn btn-primary">Sign In</button>
-                                    <a class="forgot-password ml-4" href="forgot-password.php">Forgot your
-                                        password?</a>
-                                </div>
-                                <div class="account-create pull-right">
-                                    <a class="btn btn-secondary" href="index.php">Create An Acoount</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Login Account -->
     </main>
     <!-- End Main Content -->
 
