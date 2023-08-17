@@ -2,8 +2,8 @@
 session_start();
 require "../backend/connector/conn.php";
 
-if (isset($_SESSION['email'])) {
-    $session_var = $_SESSION['email'];
+if (isset($_SESSION['emailseller'])) {
+    $session_var = $_SESSION['emailseller'];
     $sql = "SELECT * FROM sellers WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $session_var);

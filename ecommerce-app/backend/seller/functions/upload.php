@@ -7,6 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $category = $_POST["category"];
     $items_number = $_POST["items_number"];
     $price = $_POST["price"];
+    $seller_organization = $_POST["seller_organization"];
     $new_arrival_tag = isset($_POST["new_arrival_tag"]) ? "true" : "false";
     $in_demand_tag = isset($_POST["in_demand_tag"]) ? "true" : "false";
     $trending_tag = isset($_POST["trending_tag"]) ? "true" : "false";
@@ -41,9 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $image6 = $uploadedImages[5];
 
     $sql = "INSERT INTO product_information (item_name, category, image_primary, image2, image3, image4,
-     image5, image6, items_number, description, price, new_arrival_tag, in_demand_tag, trending_tag, flash_sale_tag, coming_soon)
+     image5, image6, items_number, description, price, new_arrival_tag, in_demand_tag, trending_tag, flash_sale_tag, coming_soon , seller_organization)
             VALUES ('$item_name', '$category', '$imagePrimary', '$image2', '$image3', '$image4', 
-            '$image5', '$image6', '$items_number', '$description', '$price', '$new_arrival_tag', '$in_demand_tag', '$trending_tag', '$flash_sale_tag', '$coming_soon')";
+            '$image5', '$image6', '$items_number', '$description', '$price', '$new_arrival_tag', '$in_demand_tag', '$trending_tag', '$flash_sale_tag', '$coming_soon','$seller_organization')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Data uploaded successfully!";

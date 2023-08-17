@@ -33,7 +33,7 @@ if ($result->num_rows === 1) {
     // Verify the password
     if (verifyPassword($password, $hashedPassword)) {
         // Set the email as a session variable
-        $_SESSION['email'] = $email;
+        $_SESSION['emailseller'] = $email;
 
         header("Location: ../../../seller/home.php");
         // echo "<script>alert('".$_SESSION['email']."')</script>";

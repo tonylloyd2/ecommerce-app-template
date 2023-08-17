@@ -2,8 +2,8 @@
 session_start();
 require "../backend/connector/conn.php";
 
-if (isset($_SESSION['email'])) {
-    $session_var = $_SESSION['email'];
+if (isset($_SESSION['emailseller'])) {
+    $session_var = $_SESSION['emailseller'];
     $sql = "SELECT * FROM sellers WHERE email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("s", $session_var);
@@ -224,7 +224,7 @@ location.replace('./login.php');
                                     <div class="form-group col-md-3">
                                         <label for="seller_organization">Seller Organization Name:</label>
                                         <input type="text" class="form-control" id="seller_organization"
-                                            name="seller_organization" value="<?php echo $orgname; ?> " disabled>
+                                            name="seller_organization" value="<?php echo $orgname; ?> "  >
                                     </div>
                                     <div class="form-group col-md-9">
                                         <label for="description">Item Description:</label>

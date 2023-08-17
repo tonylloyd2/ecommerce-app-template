@@ -1,3 +1,26 @@
+<?php
+require "./backend/connector/conn.php";
+
+$sql = "SELECT * FROM product_information";
+$result = $conn->query($sql);
+
+$productDetailsArray = array(); // Initialize an empty array to store the details
+
+if ($result->num_rows > 0) {
+    // Loop through the result and store each row's data in the array
+    while ($row = $result->fetch_assoc()) {
+        $productDetailsArray[] = $row;
+    }
+} else {
+    echo "No products found.";
+}
+
+// Close the connection
+// $conn->close();
+?>
+
+
+
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
@@ -29,7 +52,7 @@
             <!-- Start Promotional Bar Section -->
             <div class="promotional-bar border-0 rounded-0 d-flex align-items-center alert alert-warning fade show" role="alert">
                 <div class="container-fluid full-promotional-bar">
-                    <span>Shop with discount 50%. Hurry Up! <a href="#">Shop Now</a></span>
+                    <span>Shop with discount 50%. Hurry Up! <a href="product-details.php">Shop Now</a></span>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ti-close"></i></button>
                 </div>
             </div>
@@ -53,6 +76,7 @@
                                         <?php }else {?>
                                         <li><a href="seller/home.php">Are you a seller ?</a></li>
                                         <li><a href="my-account.php">Hello <?php echo $name ; ?></a></li>
+                                        <span class="call"><?php echo $_SESSION['email'] ?></span>
                                         <?php } ?>
                                     </ul>
                                 </div>
@@ -66,8 +90,9 @@
                                         # code...
                                 ?>
                                 <div class="phone-number">
+                                    
                                     <a href="./backend/auth/logout.php">                                        
-                                        <span class="call"><?php echo $_SESSION['email'] ?></span>
+                                    <span class="call">LOGOUT</span>    
                                     </a>
                                 </div>
                                 <?php   }
@@ -136,38 +161,33 @@
                                                             <div class="megamenu-lvl col-12 col-sm-12 col-lg-3">
                                                                 <h3>New Arrival</h3>
                                                                 <ul>
-                                                                    <li class="item-img"><a href="collections.php" class="img"><img class="img-fluid blur-up lazyload" src="assets/images/megamenu/image-3.jpg" data-src="assets/images/megamenu/image-3.jpg" alt="image" title="image" /></a></li>
-                                                                    <li><a class="item" href="collections.php">Collections Pages</a></li>
-                                                                    <li><a class="item" href="shop-grid-fullwidth.php">Shop pages</a></li>
-                                                                    <li><a class="item" href="product-details.php">Product pages</a></li>
-                                                                    <li><a class="item" href="blog.php">Blog Pages</a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="megamenu-lvl col-12 col-sm-12 col-lg-3">
-                                                                <h3>In Demand</h3>
-                                                                <ul>
-                                                                    <li class="item-img"><a href="collections.php" class="img"><img class="img-fluid blur-up lazyload" src="assets/images/megamenu/image-3.jpg" data-src="assets/images/megamenu/image-3.jpg" alt="image" title="image" /></a></li>
-                                                                    <li><a class="item" href="collections.php">Collections Pages</a></li>
-                                                                    <li><a class="item" href="shop-grid-fullwidth.php">Shop pages</a></li>
-                                                                    <li><a class="item" href="product-details.php">Product pages</a></li>
+                                                                    <li class="item-img"><a href="collections.php" class="img">
+                                                                        <img class="img-fluid blur-up lazyload" src="./image/products/Fp1EFIsX0AEGSFU.jpeg"
+                                                                         data-src="./image/products/Fp1EFIsX0AEGSFU.jpeg" alt="image" title="image"  style="width: 270px;height: 165px;" /></a></li>
+                                                                    <li><a class="item" href="collections.php">Products Pages</a></li>
                                                                     <li><a class="item" href="blog.php">Blog Pages</a></li>
                                                                 </ul>
                                                             </div>
                                                             <div class="megamenu-lvl col-12 col-sm-12 col-lg-3">
                                                                 <h3>Trending</h3>
                                                                 <ul>
-                                                                    <li class="item-img"><a href="collections.php" class="img"><img class="img-fluid blur-up lazyload" src="assets/images/megamenu/image-3.jpg" data-src="assets/images/megamenu/image-3.jpg" alt="image" title="image" /></a></li>
-                                                                    <li><a class="item" href="#">Our Store</a></li>
+
+                                                                <li class="item-img"><a href="collections.php" class="img">
+                                                                        <img class="img-fluid blur-up lazyload" src="./image/products/Fp1EFIsX0AEGSFU.jpeg"
+                                                                         data-src="./image/products/Fp1EFIsX0AEGSFU.jpeg" alt="image" title="image"  style="width: 270px;height: 165px;" /></a></li>                                                                                                                                    
                                                                     <li><a class="item" href="about-us.php">Company Info</a></li>
-                                                                    <li><a class="item" href="#">Favorites</a></li>
-                                                                    <li><a class="item" href="#">Private Policy</a></li>
+                                                                   <?php if(isset($_SESSION['email'])) { ?>
+                                                                    <li><a class="item" href="./wishlist.php">Favorites</a></li>
+                                                                    <?php } ?>
                                                                 </ul>
                                                             </div>
                                                             <div class="megamenu-lvl col-12 col-sm-12 col-lg-3">
                                                                 <h3>Flash Sale</h3>
                                                                 <ul>
-                                                                    <li class="item-img"><a href="collections.php" class="img"><img class="img-fluid blur-up lazyload" src="assets/images/megamenu/image-3.jpg" data-src="assets/images/megamenu/image-3.jpg" alt="image" title="image" /></a></li>
-                                                                    <li><a class="item" href="#">Order Status</a></li>
+
+                                                                <li class="item-img"><a href="collections.php" class="img">
+                                                                        <img class="img-fluid blur-up lazyload" src="./image/products/Fp1EFIsX0AEGSFU.jpeg"
+                                                                         data-src="./image/products/Fp1EFIsX0AEGSFU.jpeg" alt="image" title="image"  style="width: 270px;height: 165px;" /></a></li>                                                                    <li><a class="item" href="#">Order Status</a></li>
                                                                     <li><a class="item" href="#">Shipping & Returns</a></li>
                                                                     <li><a class="item" href="#">Shipping & Deliveries</a></li>
                                                                     <li><a class="item" href="terms-and-conditions.php">Terms & Conditions</a></li>
@@ -206,64 +226,22 @@
                                                         <li><a class="item" href="change-password.php">Change Password</a></li>
                                                         <?php } ?>
                                                     </ul>
-                                                </li>
-                                                <li class="dropmenu">
-                                                    <a class="item" href="#">Wishlist <span class="arw plush" title="Click to show/hide"></span></a>
-                                                    <ul class="droplink submenu1">
-                                                        <li><a class="item" href="wishlist-login.php">Wishlist Login</a></li>
-                                                        <li><a class="item" href="wishlist.php">Wishlist</a></li>
-                                                        <li><a class="item" href="empty-wishlist.php">Empty Wishlist</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="dropmenu">
-                                                    <a class="item" href="#">Cart <span class="arw plush" title="Click to show/hide"></span></a>
-                                                    <ul class="droplink submenu1">
-                                                        <li><a class="item" href="cart.php">Cart Version 1</a></li>
-                                                        <li><a class="item" href="cart-v2.php">Cart Version 2</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="dropmenu">
-                                                    <a class="item" href="#">Checkout <span class="arw plush" title="Click to show/hide"></span></a>
-                                                    <ul class="droplink submenu1">
-                                                        <li><a class="item" href="checkout.php">Checkout Version 1</a></li>
-                                                        <li><a class="item" href="checkout-v2.php">Checkout Version 2</a></li>
-                                                        <li><a class="item" href="checkout-success.php">Checkout Success</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="dropmenu">
-                                                    <a class="item" href="#">Empty Pages <span class="arw plush" title="Click to show/hide"></span></a>
-                                                    <ul class="droplink submenu1">
-                                                        <li><a class="item" href="empty-cart.php">Empty Cart</a></li>
-                                                        <li><a class="item" href="empty-category.php">Empty Category</a></li>
-                                                        <li><a class="item" href="empty-compare.php">Empty Compare</a></li>
-                                                        <li><a class="item" href="empty-search.php">Empty Search</a></li>
-                                                        <li><a class="item" href="empty-wishlist.php">Empty Wishlist</a></li>
-                                                        <li><a class="item" href="404.php">404 Page</a></li>
-                                                    </ul>
-                                                </li>
+                                                </li>                                                
+                                                
+                                                
                                             </ul>
                                         </div>
                                         <!-- End Megamenu Dropdown -->
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link" href="#">Blog
+                                        <a class="nav-link" href="./blog.php">Blog
                                             <span class="arw plush" title="Click to show/hide"></span>
                                         </a>  
                                         <!-- Start Megamenu Dropdown -->
                                         <div class="megamenu submenu dropdown">
                                             <ul>
-                                                <li><a class="item" href="blog.php">Blog Grid</a></li>
-                                                <li><a class="item" href="blog-list-sidebar.php">Blog List</a></li>
-                                                <li><a class="item" href="blog-grid-sidebar.php">Blog Sidebar</a></li>
-                                                <li><a class="item" href="blog-masonry.php">Blog Masonry</a></li>
-                                                <li class="dropmenu">
-                                                    <a class="item" href="#">Blog Details <span class="arw plush" title="Click to show/hide"></span></a>
-                                                    <ul class="droplink submenu1">
-                                                        <li><a class="item" href="single-post-image.php">Standard Post</a></li>
-                                                        <li><a class="item" href="single-post-gallery.php">Gallery Post</a></li>
-                                                        <li><a class="item" href="single-post-video.php">Video Post</a></li>
-                                                    </ul>
-                                                </li>
+                                                <li><a class="item" href="blog.php">Blog Page</a></li>
+                                                
                                             </ul>
                                         </div>
                                         <!-- End Megamenu Dropdown -->
@@ -300,7 +278,7 @@
                                 <i class="icon">
                                 <img src="<?php //echo image
                                 echo $image; ?>" class="img-fluid rounded-circle     "                           
-                                 alt="Profile Picture not found" width="32" height="32">
+                                 alt="You are not logged in" width="32" height="32">
                                 </i>
                                     <div class="cart-count" 
                                     Style="background-color:green ;display: block;position: absolute;top: 24px;left: 21px;color: #fff;width: 13px;height: 14px;line-height: 19px;border-radius: 50%;text-align: center;font-size: 11px;">

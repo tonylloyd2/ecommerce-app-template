@@ -1,3 +1,31 @@
+<?php
+session_start();
+require "./backend/connector/conn.php";
+
+$sql_products = "SELECT * FROM product_information ORDER BY RAND()";
+$result_products = $conn->query($sql_products); 
+
+if (isset($_SESSION['email'])){
+  $session_var = $_SESSION['email'];
+  $sql = "SELECT * FROM users WHERE email = ?";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("s",$session_var );
+  $stmt->execute();
+  
+  // Get the result
+  $result = $stmt->get_result();
+  if ($result->num_rows === 1) {
+      // User with the given email exists
+      $row = $result->fetch_assoc();
+      $name = $row['firstname'] . " " . $row['lastname'];
+      $image = $row['image'];
+  }
+  
+  
+ 
+
+?>
+
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     <head>
@@ -503,7 +531,7 @@
                                         <a class="nav-link" id="my-account-downloads-tab" data-toggle="pill" href="#my-account-downloads" role="tab" aria-controls="my-account-downloads" aria-selected="false">Downloads</a>
                                         <a class="nav-link" id="my-account-address-tab" data-toggle="pill" href="#my-account-address" role="tab" aria-controls="my-account-address" aria-selected="false">Addresses</a>
                                         <a class="nav-link" id="my-account-details-tab" data-toggle="pill" href="#my-account-details" role="tab" aria-controls="my-account-details" aria-selected="false">Account Details</a>
-                                        <a class="nav-link" href="login.php">Logout</a>
+                                        <a class="nav-link" href="./backend/auth/logout.php">Logout</a>
                                     </div>
                                 </div>
                                 <!-- End My Account Nav -->
@@ -936,3 +964,11 @@
     </body>
 </html>
 
+<?php }
+else {
+echo '
+<script>alert("cannot access account details not signed in , please sign in first");location.replace("./index.php")</script>
+';
+}
+
+?>
