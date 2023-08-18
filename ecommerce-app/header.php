@@ -29,6 +29,8 @@ if (isset($_SESSION['email'])){
         $name = $row['firstname'] . " " . $row['lastname'];
         $image = $row['image'];
         $user_cart_id = $row['id'];
+        $firstname = $row['firstname'];
+        $lastname = $row['lastname'];
     }
     
     

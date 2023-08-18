@@ -211,18 +211,17 @@ if (isset($_SESSION['email'])){
 
                                 <!-- Start Product List Info -->
                                 <ul class="d-flex flex-column pro-lists">
-                                    <li><i class="fa fa-check mr-2" aria-hidden="true"></i>Lorem ipsum dolor sit amet, consectetur elit.</li>
-                                    <li><i class="fa fa-check mr-2" aria-hidden="true"></i>Maecenas vehicula lorem et facilisis eleifend.</li>
-                                    <li><i class="fa fa-check mr-2" aria-hidden="true"></i>Quisque mattis augue quis risus euismod pharetra.</li>
-                                    <li><i class="fa fa-check mr-2" aria-hidden="true"></i>Curabitur bibendum massa vitae risus lacinia rutrum.</li>
+                                    <li><i class="fa fa-check mr-2" aria-hidden="true"><?php echo $product_single['description'] ?></i></li>
+                                    
                                 </ul>
                                 <!-- End Product List Info -->
 
                                 <!-- Start Product Progress Bar -->
                                 <div class="progress-stock">
-                                    <h4>Hurry! Only <span>20</span> left in stock.</h4>
+                                    <h4>Hurry! Only <span><?php echo $product_single['items_number'] ?></span> left in stock.</h4>
                                     <div class="progress rounded-0">
-                                        <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width:25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width:<?php echo $product_single['items_number'] ?>%" aria-valuenow="<?php echo $product_single['items_number'] ?>" aria-valuemin="0" aria-valuemax="100"></div>
+
                                     </div>
                                 </div>
                                 <!-- End Product Progress Bar -->
@@ -230,35 +229,22 @@ if (isset($_SESSION['email'])){
                                 <!-- Start Product Time Counter -->
                                 <div class="product-counter-text clearfix">
                                     <h4>Hurry up! Limited time Offer</h4> 
-                                    <div class="product-counter clearfix" data-countdown="2024/10/01"></div>                                       
+                                    <div class="product-counter clearfix" data-countdown="2023/10/01"></div>                                       
                                 </div>
                                 <!-- End Product Time Counter -->
 
                                 <!-- Start Product Color -->
                                 <div class="product-color">
-                                    <p class="mb-2">Color:  <b>RED</b></p>
                                     <ul class="d-flex flex-row align-items-center color-item" data-toggle="buttons">
-                                        <li class="btn black active" data-toggle="tooltip" data-placement="top" title="black"><img class="img-fluid" src="assets/images/products/product-swatch-50x50.jpg" alt="image" /></li>
-                                        <li class="btn navy" data-toggle="tooltip" data-placement="top" title="navy"><img class="img-fluid" src="assets/images/products/product-swatch-50x50.jpg" alt="image" /></li>
-                                        <li class="btn light-blue" data-toggle="tooltip" data-placement="top" title="light-blue"><img class="img-fluid" src="assets/images/products/product-swatch-50x50.jpg" alt="image" /></li>
-                                        <li class="btn green" data-toggle="tooltip" data-placement="top" title="green"><img class="img-fluid" src="assets/images/products/product-swatch-50x50.jpg" alt="image" /></li>
-                                        <li class="btn yellow" data-toggle="tooltip" data-placement="top" title="yellow"><img class="img-fluid" src="assets/images/products/product-swatch-50x50.jpg" alt="image" /></li>
+                                        <li class="btn black active"  title="black"><img class="img-fluid" style="width: 50px;height: 50px;" src="<?php echo './image/products/'.$product_single['image_primary'] ?>" alt="image" /></li>
+                                        <li class="btn navy"  title="navy"><img class="img-fluid" style="width: 50px;height: 50px;" src="<?php echo './image/products/'.$product_single['image2'] ?>" alt="image" /></li>
+                                        <li class="btn light-blue"  title="light-blue"><img class="img-fluid" style="width: 50px;height: 50px;" src="<?php echo './image/products/'.$product_single['image3'] ?>" alt="image" /></li>
+                                        <li class="btn green"  title="green"><img class="img-fluid" style="width: 50px;height: 50px;" src="<?php echo './image/products/'.$product_single['image4'] ?>" alt="image" /></li>
+                                        <li class="btn yellow"  title="yellow"><img class="img-fluid" style="width: 50px;height: 50px;" src="<?php echo './image/products/'.$product_single['image4'] ?>" alt="image" /></li>
                                     </ul>
                                 </div>
                                 <!-- End Product Color -->
 
-                                <!-- Start Product Size -->
-                                <div class="product-size">
-                                    <p class="mb-2">Color: <b>XL</b></p>
-                                    <ul class="d-flex flex-row align-items-center color-item" data-toggle="buttons">
-                                        <li class="btn x active" data-toggle="tooltip" data-placement="top" title="x"><span>X</span></li>
-                                        <li class="btn xl" data-toggle="tooltip" data-placement="top" title="xl"><span>XL</span></li>
-                                        <li class="btn m" data-toggle="tooltip" data-placement="top" title="m"><span>M</span></li>
-                                        <li class="btn s" data-toggle="tooltip" data-placement="top" title="s"><span>S</span></li>
-                                        <li class="btn xxl" data-toggle="tooltip" data-placement="top" title="xxl"><span>XXL</span></li>
-                                    </ul>
-                                </div>
-                                <!-- End Product Size -->
 
                                 <!-- Start Cart Box -->
                                 <div class="addToBox">
@@ -275,7 +261,7 @@ if (isset($_SESSION['email'])){
 
                                         <!-- Start Product Add Cart -->
                                         <div class="product-form-item product-submit pro-buy btn-block">
-                                            <a href="./backend/logics/addtocart.php?product_id=<?php echo $_GET['product_id'] ;?>" class="btn btn-primary btn-block product-btn-cart add-cart">Add to Cart</a>
+                                            <a href="./backend/logics/addtocart.php?<?php echo $_GET['product_id'] ;?>" class="btn btn-primary btn-block product-btn-cart add-cart">Add to Cart</a>
                                         </div>
                                         <!-- End Product Add Cart -->
 
@@ -288,7 +274,7 @@ if (isset($_SESSION['email'])){
                                 <div class="wish-size-ship clearfix">
                                     <!-- Start Product Wish List -->
                                     <div class="wishlistOuter pull-left">
-                                        <a href="wishlist.php"><i class="ti-heart align-middle mr-2"></i> <span class="align-middle">Add To Wishlist</span></a>
+                                        <a href="#"><i class="ti-heart align-middle mr-2"></i> <span class="align-middle">Add To Wishlist</span></a>
                                     </div>
                                     <!-- End Product Wish List -->
 
@@ -309,7 +295,7 @@ if (isset($_SESSION['email'])){
                                                                     <table class="table table-striped product-info-table">
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td>UK</td>
+                                                                                <td>Kenya</td>
                                                                                 <td>18</td>
                                                                                 <td>20</td>
                                                                                 <td>22</td>
@@ -317,7 +303,7 @@ if (isset($_SESSION['email'])){
                                                                                 <td>26</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>European</td>
+                                                                                <td>Uganda</td>
                                                                                 <td>18</td>
                                                                                 <td>20</td>
                                                                                 <td>22</td>
@@ -325,7 +311,7 @@ if (isset($_SESSION['email'])){
                                                                                 <td>26</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>US</td>
+                                                                                <td>Tanzania</td>
                                                                                 <td>18</td>
                                                                                 <td>20</td>
                                                                                 <td>22</td>
@@ -333,7 +319,7 @@ if (isset($_SESSION['email'])){
                                                                                 <td>26</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>Australia</td>
+                                                                                <td>Egypt</td>
                                                                                 <td>18</td>
                                                                                 <td>20</td>
                                                                                 <td>22</td>
@@ -341,7 +327,7 @@ if (isset($_SESSION['email'])){
                                                                                 <td>26</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>India</td>
+                                                                                <td>Rwanda</td>
                                                                                 <td>18</td>
                                                                                 <td>20</td>
                                                                                 <td>22</td>
@@ -352,7 +338,9 @@ if (isset($_SESSION['email'])){
                                                                     </table>
                                                                 </div>
                                                                 <div class="col-12 col-sm-6 col-md-6 text-center size-chart-img">
-                                                                    <img class="img-fluid blur-up lazyload" src="assets/images/others/size-chart.png" data-src="assets/images/others/size-chart.png" alt="image" title="image" />
+                                                                    <img class="img-fluid blur-up lazyload" style="width: 550px;height:350px ;"
+                                                                     src="<?php echo "./image/products/".$product_single['image_primary'] ?>"
+                                                                      data-src="<?php echo "./image/products/".$product_single['image_primary'] ?>" alt="image" title="image" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -384,14 +372,9 @@ if (isset($_SESSION['email'])){
                                                                 <p>All orders are shipped with a UPS tracking number.</p>
                                                                 <h4>Help</h4>
                                                                 <p class="mb-1">Give us a shout if you have any other questions and/or concerns.</p>
-                                                                <p class="mb-1">Email: <a href="mailto:yourmail@domain.com">yourmail@domain.com</a></p>
-                                                                <p>Phone: <a href="tel:0123456789">0123456789</a></p>
-                                                                <ul class="d-flex flex-column pro-lists">
-                                                                    <li><i class="fa fa-check mr-2" aria-hidden="true"></i>Version of Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet.</li>
-                                                                    <li><i class="fa fa-check mr-2" aria-hidden="true"></i>Aenean sollicitudin, lorem quis bibendum auctor.</li>
-                                                                    <li><i class="fa fa-check mr-2" aria-hidden="true"></i>Nisi elit consequat ipsum, nec sagittis sem nibh id elit.</li>
-                                                                    <li><i class="fa fa-check mr-2" aria-hidden="true"></i>Duis sed odio sit amet nibh vulputate cursus a sit amet mauris.</li>
-                                                                </ul>
+                                                                <p class="mb-1">Email: <a href="mailto:help@eshoppergoodies.com">help@eshoppergoodies.com</a></p>
+                                                                <p>Phone: <a href="tel:0993456789">0123456789</a></p>
+                                                                
                                                             </div>
                                                         </div>
                                                     </div>
@@ -404,17 +387,32 @@ if (isset($_SESSION['email'])){
                                     <!-- Start Product Size Shipping Info -->
                                 </div>
 
-                                <!-- Start Product Counter Time -->
-                                <div class="counter-real-time">
-                                    <i class="fa fa-users mr-2" aria-hidden="true"></i> Real time <span class="number-counter mx-1">98</span> Visitor right now
-                                </div>
-                                <!-- Start Product Counter Time -->
-
                                 <!-- Start Product Next Order Info -->
                                 <div class="get-next-order">
                                     <i class="fa fa-hourglass-half mr-2" aria-hidden="true"></i>
-                                    Order in the next <span class="hr-min">4 hours 0 minutes</span> to get it by <span class="date">Tuesday 04/16/2019</span>
+                                    Order in the next <span class="hr-min">4 hours 0 minutes</span> to get it by <span class="date" id="delivery-date"></span>
                                 </div>
+
+                                <script>
+                                    // Get the current date
+                                    var currentDate = new Date();
+
+                                    // Calculate the date 2 days ahead
+                                    var deliveryDate = new Date();
+                                    deliveryDate.setDate(currentDate.getDate() + 2);
+
+                                    // Format the delivery date as "Day MM/DD/YYYY"
+                                    var formattedDate = deliveryDate.toLocaleDateString('en-US', {
+                                        weekday: 'long',
+                                        year: 'numeric',
+                                        month: 'numeric',
+                                        day: 'numeric'
+                                    });
+
+                                    // Update the content of the delivery date element
+                                    document.getElementById('delivery-date').textContent = formattedDate;
+                                </script>
+
                                 <!-- Start Product Next Order Info -->
 
                                 <!-- Start Checkout Info -->
@@ -457,6 +455,14 @@ if (isset($_SESSION['email'])){
                             <p>Browse the huge variety of our products</p>
                         </div>
                         <div class="row row-sp row-eq-height prcarousel">
+                            <?php
+                            // select from database
+                            $category = $product_single['category'];
+                            $sql_product_related = "SELECT * FROM product_information where category = '$category'";
+                            $result_product_related = $conn->query($sql_product_related); 
+                        while(  $product_related = $result_product_related->fetch_assoc()) {
+                            
+                            ?>
                             <div class="col-sp col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6">
                                 <div class="product-item">
                                     <div class="product-image-action">
@@ -466,16 +472,20 @@ if (isset($_SESSION['email'])){
                                         </div>
                                         <div class="product-image">
                                             <a href="product-details.php">
-                                                <img class="img-fluid blur-up lazyload primary-img" src="assets/images/products/product-1.jpg" data-src="assets/images/products/product-1.jpg" alt="image" title="image" />
-                                                <img class="img-fluid blur-up lazyload product-imghover secondary-img" src="assets/images/products/product-1-1.jpg" data-src="assets/images/products/product-1-1.jpg" alt="image" title="image" />
+                                                <img class="img-fluid blur-up lazyload primary-img"
+                                                 src="<?php echo './image/products/'.$product_related['image_primary'] ?>"style="width: 300px; height: 300px;" 
+                                                  data-src="<?php echo './image/products/'.$product_related['image_primary'] ?>" alt="image" title="image" />
+                                                <img class="img-fluid blur-up lazyload product-imghover secondary-img" style="width: 300px; height: 300px;" 
+                                                src="<?php echo './image/products/'.$product_related['image_primary'] ?>" 
+                                                data-src="<?php echo './image/products/'.$product_related['image_primary'] ?>" alt="image" title="image" />
                                             </a>
                                         </div>
                                         <div class="product-action">
                                             <ul>
-                                                <li class="actions-addcart" data-toggle="tooltip" data-placement="top" title="add to cart"><a href="#open-addtocart-popup" class="btn open-addtocart-popup"><i class="icon ti-shopping-cart"></i></a></li>
-                                                <li class="actions-quickview" data-toggle="tooltip" data-placement="top" title="quick view"><a href="#open-quickview-popup" class="btn open-quickview-popup"><i class="icon ti-zoom-in"></i></a></li>
-                                                <li class="actions-wishlist" data-toggle="tooltip" data-placement="top" title="add to wishlist"><a href="#open-wishlist-popup" class="btn open-wishlist-popup"><i class="icon ti-heart"></i></a></li>
-                                                <li class="actions-compare" data-toggle="tooltip" data-placement="top" title="add to compare"><a href="compare.php" class="btn"><i class="icon ti-control-shuffle"></i></a></li>
+                                                <li   title="add to cart"><a href="./backend/logics/addtocart.php?product_id=<?php echo $product_related['id']; ?>" class="btn"><i class="icon ti-shopping-cart"></i></a></li>
+                                                <li class="actions-quickview"  title="quick view"><a href="#" class="btn open-quickview-popup"><i class="icon ti-zoom-in"></i></a></li>
+                                                <li class="actions-wishlist"  title="add to wishlist"><a href="#" class="btn open-wishlist-popup"><i class="icon ti-heart"></i></a></li>
+                                                <li class="actions-compare"  title="add to compare"><a href="#" class="btn"><i class="icon ti-control-shuffle"></i></a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -496,153 +506,8 @@ if (isset($_SESSION['email'])){
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sp col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6">
-                                <div class="product-item">
-                                    <div class="product-image-action">
-                                        <div class="product-label">
-                                            <span class="label soldout">-20%</span>
-                                        </div>
-                                        <div class="product-image">
-                                            <a href="product-details.php">
-                                                <img class="img-fluid blur-up lazyload" src="assets/images/products/product-1.jpg" data-src="assets/images/products/product-1.jpg" alt="image" title="image" />
-                                                <img class="img-fluid blur-up lazyload product-imghover" src="assets/images/products/product-1-1.jpg" data-src="assets/images/products/product-1-1.jpg" alt="image" title="image" />
-                                            </a>
-                                        </div>
-                                        <div class="product-action">
-                                            <ul>
-                                                <li class="actions-addcart" data-toggle="tooltip" data-placement="top" title="add to cart"><a href="#open-addtocart-popup" class="btn open-addtocart-popup"><i class="icon ti-shopping-cart"></i></a></li>
-                                                <li class="actions-quickview" data-toggle="tooltip" data-placement="top" title="quick view"><a href="#open-quickview-popup" class="btn open-quickview-popup"><i class="icon ti-zoom-in"></i></a></li>
-                                                <li class="actions-wishlist" data-toggle="tooltip" data-placement="top" title="add to wishlist"><a href="#open-wishlist-popup" class="btn open-wishlist-popup"><i class="icon ti-heart"></i></a></li>
-                                                <li class="actions-compare" data-toggle="tooltip" data-placement="top" title="add to compare"><a href="compare.php" class="btn"><i class="icon ti-control-shuffle"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-details">
-                                        <h3 class="product-title"><a href="product-details.php">Aenean commodo ligula eget dolor</a></h3>
-                                        <h4 class="product-vendor">Posh Auto Parts</h4>
-                                        <div class="product-starrating">
-                                            <i class="spr-icon fa fa-star"></i>
-                                            <i class="spr-icon fa fa-star"></i>
-                                            <i class="spr-icon fa fa-star"></i>
-                                            <i class="spr-icon fa fa-star-o"></i>
-                                            <i class="spr-icon fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-price">
-                                            <span class="compare-price">$75.20</span>
-                                            <span class="sale-price">$70.15</span>
-                                        </div>                                           
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sp col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6">
-                                <div class="product-item">
-                                    <div class="product-image-action">
-                                        <div class="product-label">
-                                            <span class="label soldout">Sold Out</span>
-                                        </div>
-                                        <div class="product-image">
-                                            <a href="product-details.php">
-                                                <img class="img-fluid blur-up lazyload" src="assets/images/products/product-1.jpg" data-src="assets/images/products/product-1.jpg" alt="image" title="image" />
-                                                <img class="img-fluid blur-up lazyload product-imghover" src="assets/images/products/product-1-1.jpg" data-src="assets/images/products/product-1-1.jpg" alt="image" title="image" />
-                                            </a>
-                                        </div>
-                                        <div class="product-action">
-                                            <ul>
-                                                <li class="actions-addcart" data-toggle="tooltip" data-placement="top" title="add to cart"><a href="#open-addtocart-popup" class="btn open-addtocart-popup"><i class="icon ti-shopping-cart"></i></a></li>
-                                                <li class="actions-quickview" data-toggle="tooltip" data-placement="top" title="quick view"><a href="#open-quickview-popup" class="btn open-quickview-popup"><i class="icon ti-zoom-in"></i></a></li>
-                                                <li class="actions-wishlist" data-toggle="tooltip" data-placement="top" title="add to wishlist"><a href="#open-wishlist-popup" class="btn open-wishlist-popup"><i class="icon ti-heart"></i></a></li>
-                                                <li class="actions-compare" data-toggle="tooltip" data-placement="top" title="add to compare"><a href="compare.php" class="btn"><i class="icon ti-control-shuffle"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-details">
-                                        <h3 class="product-title"><a href="product-details.php">Sociosqu facilisi senectus</a></h3>
-                                        <h4 class="product-vendor">Posh Auto Parts</h4>                                            
-                                        <div class="product-starrating">
-                                            <i class="spr-icon fa fa-star"></i>
-                                            <i class="spr-icon fa fa-star"></i>
-                                            <i class="spr-icon fa fa-star-o"></i>
-                                            <i class="spr-icon fa fa-star-o"></i>
-                                            <i class="spr-icon fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-price">
-                                            <span class="sale-price">$133.50</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sp col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6">
-                                <div class="product-item">
-                                    <div class="product-image-action">
-                                        <div class="product-label">
-                                            <span class="label hot">Hot</span>
-                                        </div>
-                                        <div class="product-image">
-                                            <a href="product-details.php">
-                                                <img class="img-fluid blur-up lazyload" src="assets/images/products/product-1.jpg" data-src="assets/images/products/product-1.jpg" alt="image" title="image" />
-                                                <img class="img-fluid blur-up lazyload product-imghover" src="assets/images/products/product-1-1.jpg" data-src="assets/images/products/product-1-1.jpg" alt="image" title="image" />
-                                            </a>
-                                        </div>
-                                        <div class="product-action">
-                                            <ul>
-                                                <li class="actions-addcart" data-toggle="tooltip" data-placement="top" title="add to cart"><a href="#open-addtocart-popup" class="btn open-addtocart-popup"><i class="icon ti-shopping-cart"></i></a></li>
-                                                <li class="actions-quickview" data-toggle="tooltip" data-placement="top" title="quick view"><a href="#open-quickview-popup" class="btn open-quickview-popup"><i class="icon ti-zoom-in"></i></a></li>
-                                                <li class="actions-wishlist" data-toggle="tooltip" data-placement="top" title="add to wishlist"><a href="#open-wishlist-popup" class="btn open-wishlist-popup"><i class="icon ti-heart"></i></a></li>
-                                                <li class="actions-compare" data-toggle="tooltip" data-placement="top" title="add to compare"><a href="compare.php" class="btn"><i class="icon ti-control-shuffle"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-details">
-                                        <h3 class="product-title"><a href="product-details.php">Nullam scelerisque suscipit sociis</a></h3>
-                                        <h4 class="product-vendor">Posh Auto Parts</h4>                                            
-                                        <div class="product-starrating">
-                                            <i class="spr-icon fa fa-star"></i>
-                                            <i class="spr-icon fa fa-star-o"></i>
-                                            <i class="spr-icon fa fa-star-o"></i>
-                                            <i class="spr-icon fa fa-star-o"></i>
-                                            <i class="spr-icon fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-price">
-                                            <span class="compare-price">$145.05</span>
-                                            <span class="sale-price">$135.33</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sp col-xl-3 col-lg-3 col-md-4 col-sm-6 col-6">
-                                <div class="product-item">
-                                    <div class="product-image-action">
-                                        <div class="product-image">
-                                            <a href="product-details.php">
-                                                <img class="img-fluid blur-up lazyload" src="assets/images/products/product-1.jpg" data-src="assets/images/products/product-1.jpg" alt="image" title="image" />
-                                                <img class="img-fluid blur-up lazyload product-imghover" src="assets/images/products/product-1-1.jpg" data-src="assets/images/products/product-1-1.jpg" alt="image" title="image" />
-                                            </a>
-                                        </div>
-                                        <div class="product-action">
-                                            <ul>
-                                                <li class="actions-addcart" data-toggle="tooltip" data-placement="top" title="add to cart"><a href="#open-addtocart-popup" class="btn open-addtocart-popup"><i class="icon ti-shopping-cart"></i></a></li>
-                                                <li class="actions-quickview" data-toggle="tooltip" data-placement="top" title="quick view"><a href="#open-quickview-popup" class="btn open-quickview-popup"><i class="icon ti-zoom-in"></i></a></li>
-                                                <li class="actions-wishlist" data-toggle="tooltip" data-placement="top" title="add to wishlist"><a href="#open-wishlist-popup" class="btn open-wishlist-popup"><i class="icon ti-heart"></i></a></li>
-                                                <li class="actions-compare" data-toggle="tooltip" data-placement="top" title="add to compare"><a href="compare.php" class="btn"><i class="icon ti-control-shuffle"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="product-details">
-                                        <h3 class="product-title"><a href="product-details.php">Consectetur adipisicing elit</a></h3>
-                                        <h4 class="product-vendor">Posh Auto Parts</h4>                                            
-                                        <div class="product-starrating">
-                                            <i class="spr-icon fa fa-star"></i>
-                                            <i class="spr-icon fa fa-star"></i>
-                                            <i class="spr-icon fa fa-star-half-o"></i>
-                                            <i class="spr-icon fa fa-star-o"></i>
-                                            <i class="spr-icon fa fa-star-o"></i>
-                                        </div>
-                                        <div class="product-price">
-                                            <span class="sale-price">$113.88</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
