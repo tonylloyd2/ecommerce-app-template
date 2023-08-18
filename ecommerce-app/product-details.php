@@ -166,7 +166,7 @@ if (isset($_SESSION['email'])){
                                                 </div>
                                                 <div class="info-details d-table-cell align-middle">
                                                     <h5>Support 24/7</h5>
-                                                    <span>We support 24/7 Have a Question? Call Us <a href="tel:123-45-6789">123-45-6789</a></span>
+                                                    <span>We support 24/7 Have a Question? Call Us <a href="tel:25471212121">123-45-6789</a></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -180,7 +180,7 @@ if (isset($_SESSION['email'])){
                             <div class="col-12 col-sm-12 col-md-6 product-info-details">
                                 <!-- Start Product Info -->
                                 <div class="profuct-info">
-                                    <h1 class="product-title">Waterproof Cigarette tiyer</h1>
+                                    <h1 class="product-title"><?php echo $product_single['item_name'] ; ?></h1>
                                     <div class="pro-revi-arrow clearfix">
                                         <div class="product-starrating pull-left">
                                             <i class="spr-icon fa fa-star"></i>
@@ -190,23 +190,18 @@ if (isset($_SESSION['email'])){
                                             <i class="spr-icon fa fa-star-o"></i>
                                             <span>4 Reviews</span>
                                         </div>
-                                        <div class="pro-arrow pull-right">
-                                            <a class="pro-next" href="product-details.php"><i class="ti-angle-left"></i></a>
-                                            <a class="pro-prev" href="product-details-classic.php"><i class="ti-angle-right"></i></a>
-                                        </div>
                                     </div>
                                     <ul class="row pro-info-list">
                                         <li class="col-12 col-md-4 col-sm-4 instock text-sm-left">In Stock</li>
-                                        <li class="col-12 col-md-4 col-sm-4 vendor text-sm-center"><b>Vendor:</b> Autoparts</li>
-                                        <li class="col-12 col-md-4 col-sm-4 sku text-sm-right"><b>SKU:</b> 19115-rdxs</li>
+                                        <li class="col-12 col-md-4 col-sm-4 vendor text-sm-center"><b>Vendor: </b><?php echo $product_single['seller_organization'] ?>  </li>
                                     </ul>
                                 </div>
                                 <!-- End Product Info -->
 
                                 <!-- Start Product Price -->
                                 <ul class="d-sm-flex flex-sm-row align-items-sm-center product-price-info">
-                                    <li class="product-price m-0"><span class="compare-price">$499.00</span><span class="sale-price">$399.00</span></li>
-                                    <li class="save-price">You Save <span class="save-count">$100.00 (10%)</span></li>
+                                    <li class="product-price m-0"><span class="compare-price">$<?php echo $product_single['price'] * 1.15; ?></span><span class="sale-price">$<?php echo $product_single['price']?></span></li>
+                                    <li class="save-price">You Save <span class="save-count">$<?php echo $product_single['price'] * .15; ?> (15%)</span></li>
                                 </ul>
                                 <!-- End Product Price -->
 
