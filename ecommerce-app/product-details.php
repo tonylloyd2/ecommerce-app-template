@@ -275,7 +275,7 @@ if (isset($_SESSION['email'])){
 
                                         <!-- Start Product Add Cart -->
                                         <div class="product-form-item product-submit pro-buy btn-block">
-                                            <a href="./backend/logics/deletecart.php?product_id=<?php echo $_GET['product_id'] ;?>" class="btn btn-primary btn-block product-btn-cart add-cart">Add to Cart</a>
+                                            <a href="./backend/logics/addtocart.php?product_id=<?php echo $_GET['product_id'] ;?>" class="btn btn-primary btn-block product-btn-cart add-cart">Add to Cart</a>
                                         </div>
                                         <!-- End Product Add Cart -->
 
