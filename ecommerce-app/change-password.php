@@ -1,10 +1,3 @@
-<?php
-session_start();
-require "./backend/connector/conn.php";
-
-
-$query_products = "SELECT * FROM product_information order by rand()";
-$result_products = mysqli_query($conn, $query_products);
 
 <?php 
 $password_error = null;
@@ -38,12 +31,11 @@ require "./backend/connector/conn.php";
         }
     }
 
-
+    
  include "./header.php";
- 
- 
+?>
 
- ?>
+
             <!-- Start Main Content -->
             <main class="main-content">
                 <!-- Start Breadcrumb -->
@@ -70,21 +62,21 @@ require "./backend/connector/conn.php";
                                     <p style="color:red;"><?php echo($password_error); ?></p>
                                 </div>
 
-                                <form action="./backend/logics/updatepassword.php" novalidate class="password-change-form needs-validation" method="post" >
+                                <form method="post" action="<?php echo(htmlspecialchars($_SERVER["PHP_SELF"])); ?>" class="password-change-form needs-validation" novalidate>
                                     <div class="form-group">
                                         <label>Current Password *</label>
-                                        <input type="password" class="form-control" placeholder="" required  name="current_password"/>
+                                        <input type="password" class="form-control" name="password" placeholder="" required />
                                         <div class="invalid-feedback">Please enter your current password.</div>
                                     </div>
                                     <div class="form-group">
                                         <label>New Password *</label>
-                                        <input type="password" class="form-control" placeholder="" required name="new_password" />
+                                        <input type="password" class="form-control" name="npassword" placeholder="" required />
                                         <small class="form-text text-muted">Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters.</small>
                                         <div class="invalid-feedback">Please enter your new password.</div>
                                     </div>
                                     <div class="form-group">
                                         <label>Verify *</label>
-                                        <input type="password" class="form-control" placeholder="" required  name="verify_password"/>
+                                        <input type="password" class="form-control" name="cpassword" placeholder="" required />
                                         <small class="form-text small text-muted">To confirm, type the new password again.</small>
                                         <div class="invalid-feedback">Please enter your new password again.</div>
                                     </div>
@@ -101,5 +93,6 @@ require "./backend/connector/conn.php";
             </main>
             <!-- End Main Content -->
 
-            <!-- Start Footer Section -->
-      <?php  include "./footer.php" ; ?>
+<?php
+    include("./footer.php");
+?>
