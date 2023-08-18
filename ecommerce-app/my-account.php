@@ -19,6 +19,7 @@ if (isset($_SESSION['email'])){
       $row = $result->fetch_assoc();
       $name = $row['firstname'] . " " . $row['lastname'];
       $image = $row['image'];
+      $user_cart_id = $row['id'];
   }
   
   

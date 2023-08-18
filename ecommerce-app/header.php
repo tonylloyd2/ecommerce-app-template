@@ -14,6 +14,25 @@ if ($result->num_rows > 0) {
 } else {
     echo "No products found.";
 }
+if (isset($_SESSION['email'])){
+    $session_var = $_SESSION['email'];
+    $sql = "SELECT * FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s",$session_var );
+    $stmt->execute();
+    
+    // Get the result
+    $result = $stmt->get_result();
+    if ($result->num_rows === 1) {
+        // User with the given email exists
+        $row = $result->fetch_assoc();
+        $name = $row['firstname'] . " " . $row['lastname'];
+        $image = $row['image'];
+        $user_cart_id = $row['id'];
+    }
+    
+    
+  }
 
 // Close the connection
 // $conn->close();
@@ -148,56 +167,10 @@ if ($result->num_rows > 0) {
                                     </li>
                                     
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Products
+                                        <a class="nav-link" href="./collections.php">Products
                                             <span class="arw plush" title="Click to show/hide"></span>
                                             <span class="lbl new">New</span>
                                         </a>  
-                                        <!-- Start Megamenu Style 3 -->
-                                        <div class="megamenu submenu style3">
-                                            <div class="container">
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="row">
-                                                            <div class="megamenu-lvl col-12 col-sm-12 col-lg-3">
-                                                                <h3>New Arrival</h3>
-                                                                <ul>
-                                                                    <li class="item-img"><a href="collections.php" class="img">
-                                                                        <img class="img-fluid blur-up lazyload" src="./image/products/Fp1EFIsX0AEGSFU.jpeg"
-                                                                         data-src="./image/products/Fp1EFIsX0AEGSFU.jpeg" alt="image" title="image"  style="width: 270px;height: 165px;" /></a></li>
-                                                                    <li><a class="item" href="collections.php">Products Pages</a></li>
-                                                                    <li><a class="item" href="blog.php">Blog Pages</a></li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="megamenu-lvl col-12 col-sm-12 col-lg-3">
-                                                                <h3>Trending</h3>
-                                                                <ul>
-
-                                                                <li class="item-img"><a href="collections.php" class="img">
-                                                                        <img class="img-fluid blur-up lazyload" src="./image/products/Fp1EFIsX0AEGSFU.jpeg"
-                                                                         data-src="./image/products/Fp1EFIsX0AEGSFU.jpeg" alt="image" title="image"  style="width: 270px;height: 165px;" /></a></li>                                                                                                                                    
-                                                                    <li><a class="item" href="about-us.php">Company Info</a></li>
-                                                                   <?php if(isset($_SESSION['email'])) { ?>
-                                                                    <li><a class="item" href="./wishlist.php">Favorites</a></li>
-                                                                    <?php } ?>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="megamenu-lvl col-12 col-sm-12 col-lg-3">
-                                                                <h3>Flash Sale</h3>
-                                                                <ul>
-
-                                                                <li class="item-img"><a href="collections.php" class="img">
-                                                                        <img class="img-fluid blur-up lazyload" src="./image/products/Fp1EFIsX0AEGSFU.jpeg"
-                                                                         data-src="./image/products/Fp1EFIsX0AEGSFU.jpeg" alt="image" title="image"  style="width: 270px;height: 165px;" /></a></li>                                                                    <li><a class="item" href="#">Order Status</a></li>
-                                                                    <li><a class="item" href="#">Shipping & Returns</a></li>
-                                                                    <li><a class="item" href="#">Shipping & Deliveries</a></li>
-                                                                    <li><a class="item" href="terms-and-conditions.php">Terms & Conditions</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <!-- End Megamenu Style 3 -->
                                     </li>
                                     <li class="nav-item dropdown">
@@ -210,9 +183,6 @@ if ($result->num_rows > 0) {
                                                 <li><a class="item" href="about-us.php">About Us</a></li>
                                                 <li><a class="item" href="faqs.php">FAQ's</a></li>
                                                 <li><a class="item" href="contact-us.php">Contact Us</a></li>
-                                                <li><a class="item" href="coming-soon.php">Coming Soon</a></li>
-                                                <li><a class="item" href="order-tracking.php">Order Tracking</a></li>
-                                                <li><a class="item" href="compare.php">Compare</a></li>
                                                 <li class="dropmenu">
                                                     <a class="item" href="#">My Account <span class="arw plush" title="Click to show/hide"></span></a>
                                                     <ul class="droplink submenu1">
@@ -233,19 +203,7 @@ if ($result->num_rows > 0) {
                                         </div>
                                         <!-- End Megamenu Dropdown -->
                                     </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link" href="./blog.php">Blog
-                                            <span class="arw plush" title="Click to show/hide"></span>
-                                        </a>  
-                                        <!-- Start Megamenu Dropdown -->
-                                        <div class="megamenu submenu dropdown">
-                                            <ul>
-                                                <li><a class="item" href="blog.php">Blog Page</a></li>
-                                                
-                                            </ul>
-                                        </div>
-                                        <!-- End Megamenu Dropdown -->
-                                    </li>
+                                    
                                 </ul>
                             </div>
                         </nav>
@@ -253,14 +211,27 @@ if ($result->num_rows > 0) {
                         <!-- Start Right Menu -->
                         <div class="col-6 col-md-6 col-lg-2 p-0 right-side">
                             <!-- Start Minicart -->
+                            <?php if (isset($_SESSION['email'])) {
+                                $sqlcart = "SELECT * FROM cart WHERE user_id = ?";
+                                $stmtcart = $conn->prepare($sqlcart);
+                                $stmtcart->bind_param("s", $user_cart_id);
+                                $stmtcart->execute();
+        
+                                // Get the result
+                                $resultcart = $stmtcart->get_result();
+
+                                
+                            
+                             ?>
                             <div class="minicart float-right">
                                 <a href="#" class="cart-btn" title="Cart" data-toggle="modal" data-target="#mycartdrawer">
                                     <i class="icon ti-shopping-cart"></i>
                                     <div class="cart-count">
-                                        <span id="count">4</span>
+                                        <span id="count"><?php echo $resultcart->num_rows; ?> </span>
                                     </div>
                                 </a>
                             </div>
+                            <?php }?>
                             <!-- End Minicart -->
                             <!-- Start Search Box -->
                             <div class="search-box float-right">

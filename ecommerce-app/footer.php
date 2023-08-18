@@ -1,4 +1,9 @@
-<footer class="footer bg-white footer-v2">
+<style>
+    .bg-white{
+        background-color: aqua;
+    }
+</style>
+<footer class=" bg-white footer-v2" style="background-color: aqua; ">
                 <!-- Start Footer Topbar -->
                 <div class="footer-top p-0 clearfix">
                     <div class="container">
@@ -125,100 +130,87 @@
                         </a>
                     </div>
                     <div class="minicart-details">
+                        <?php
+
+                        $sqlcart = "SELECT * FROM cart WHERE user_id = ?";
+                        $stmtcart = $conn->prepare($sqlcart);
+                        $stmtcart->bind_param("s", $user_cart_id);
+                        $stmtcart->execute();
+
+                        // Get the result
+                        $resultcart = $stmtcart->get_result();
+                        if ($resultcart->num_rows === 0) {
+                            
+
+                            ?>
                         <div class="empty-cart">
                             <p>You have no items in your shopping cart.</p>
                         </div>
+                        <?php }
+                        else {
+                            
+                            
+
+                        ?>
                         <ul class="cart-lists clearfix">
+                        <?php 
+                        $totalprice = 0;
+                        while ($cart_data = $resultcart->fetch_assoc()) { 
+                            $totalprice = $totalprice + $cart_data['product_price']
+                                ?>
                             <li class="cart-item d-table">
                                 <div class="pro-img d-table-cell align-middle">
                                     <a href="product-details.php">
-                                        <img class="img-fluid blur-up lazyload" src="assets/images/products/cart-pro-76x76.jpg" data-src="assets/images/products/cart-pro-76x76.jpg" alt="image" title="Donec pede justo fringilla" />
+                                        <img class="img-fluid blur-up lazyload" style="width: 74px;height: 99px;" 
+                                        src="<?php echo './image/products/'.$cart_data['product_image']  ;?>" 
+                                        data-src="<?php echo './image/products/'.$cart_data['product_image']  ;?>"
+                                        alt="not found" title="<?php echo $cart_data['product_name'] ; ?>" />
                                     </a>
                                 </div>
                                 <div class="item-info pl-4 text-left d-table-cell align-top">
-                                    <a href="product-details.php">Donec pede justo fringilla</a>
-                                    <p class="size-color">Sliver Black/XXL</p>
-                                    <p class="price">1 x $699.00</p>
+                                    <a href='product-details.php?product_id=<?php echo $cart_data["product_id"]; ?>' >
+                                    <?php echo $cart_data['product_name'] ; ?>  </a>
+                                    <p class="price"><?php echo "Price Ksh $".$cart_data['product_price'];  ?> </p>
                                 </div>
                                 <div class="item-right cart-remove d-table-cell align-middle">
-                                    <a class="edit mr-2" href="#"><i class="ti-pencil-alt"></i></a>
-                                    <a class="remove" href="#"><i class="ti-close"></i></a>
+                                    <a class="remove" href="./backend/logics/deletecart.php?product_id=<?php echo $cart_data['product_id'] ;?>"><i class="ti-close"></i></a>
                                 </div>
                             </li>
-                            <li class="cart-item d-table">
-                                <div class="pro-img d-table-cell align-middle">
-                                    <a href="product-details.php">
-                                        <img class="img-fluid blur-up lazyload" src="assets/images/products/cart-pro-76x76.jpg" data-src="assets/images/products/cart-pro-76x76.jpg" alt="image" title="Sociosqu facilisi senectus nisi etiam" />
-                                    </a>
-                                </div>
-                                <div class="item-info pl-4 text-left float-left d-table-cell align-top">
-                                    <a href="#">Sociosqu facilisi senectus nisi</a>
-                                    <p class="size-color">Red/XL</p>
-                                    <p class="price">1 x $299.00</p>
-                                </div>
-                                <div class="item-right cart-remove d-table-cell align-middle">
-                                    <a class="edit mr-2" href="#"><i class="ti-pencil-alt"></i></a>
-                                    <a class="remove" href="#"><i class="ti-close"></i></a>
-                                </div>
-                            </li>
-                            <li class="cart-item d-table">
-                                <div class="pro-img d-table-cell align-middle">
-                                    <a href="product-details.php">
-                                        <img class="img-fluid blur-up lazyload" src="assets/images/products/cart-pro-76x76.jpg" data-src="assets/images/products/cart-pro-76x76.jpg" alt="image" title="Nullam scelerisque suscipit sociis" />
-                                    </a>
-                                </div>
-                                <div class="item-info pl-4 text-left d-table-cell align-top">
-                                    <a href="product-details.php">Nullam scelerisque suscipit</a>
-                                    <p class="size-color">Silver/L</p>
-                                    <p class="price">1 x $239.00</p>
-                                </div>
-                                <div class="item-right cart-remove d-table-cell align-middle">
-                                    <a class="edit mr-2" href="#"><i class="ti-pencil-alt"></i></a>
-                                    <a class="remove" href="#"><i class="ti-close"></i></a>
-                                </div>
-                            </li>
-                            <li class="cart-item d-table">
-                                <div class="pro-img d-table-cell align-middle">
-                                    <a href="product-details.php">
-                                        <img class="img-fluid blur-up lazyload" src="assets/images/products/cart-pro-76x76.jpg" data-src="assets/images/products/cart-pro-76x76.jpg" alt="image" title="Pellentesque habitant morbi" />
-                                    </a>
-                                </div>
-                                <div class="item-info pl-4 text-left d-table-cell align-top">
-                                    <a href="product-details.php">Pellentesque habitant morbi</a>
-                                    <p class="size-color">Black/M</p>
-                                    <p class="price">1 x $119.00</p>
-                                </div>
-                                <div class="item-right cart-remove d-table-cell align-middle">
-                                    <a class="edit mr-2" href="#"><i class="ti-pencil-alt"></i></a>
-                                    <a class="remove" href="#"><i class="ti-close"></i></a>
-                                </div>
-                            </li>
-                        </ul>                    
+                            <?php }?>
+                        </ul> 
+                        <?php } ?>                   
                     </div>
 
                     <div class="minicart-bottom-actions">
+                        <form action="./checkout.php" method="post">
                         <div class="pro-totals d-inline-block w-100">
                             <div class="items mb-1 clearfix">
                                 <span class="item subtotal float-left">Subtotal:</span>
-                                <span class="price-total float-right"><span class="price">$1356.00</span></span>
+                                <span class="price-total float-right"><span class="price"><?php echo $totalprice; ?></span></span>
+                            </div>
+                            <div class="items mb-1 clearfix">
+                                <span class="item shipping float-left">Tax:</span>
+                                <span class="price-total float-right"><span class="price">$
+                                    <?php $shipping =  $totalprice * .001; echo $shipping; $tax= $totalprice *.0015; ?></span></span>
                             </div>
                             <div class="items mb-1 clearfix">
                                 <span class="item shipping float-left">Shipping:</span>
-                                <span class="price-total float-right"><span class="price">$10.00</span></span>
-                            </div>
-                            <div class="items mb-1 clearfix">
-                                <span class="item tax float-left">Tax:</span>
-                                <span class="price-total float-right"><span class="price">$0.00</span></span>
+                                <span class="price-total float-right"><span class="price">$
+                                    <?php echo $tax ;?></span></span>
                             </div>
                             <div class="items clearfix">
                                 <span class="item total float-left">Total:</span>
-                                <span class="price-total float-right"><span class="price">$1366.00</span></span>
+                                <span class="price-total float-right"><span class="price">$<?php echo $totalprice - $tax - $shipping; ?></span></span>
                             </div>
+
+
+
                         </div>
                         <div class="actions d-inline-block w-100 text-center">
-                            <a class="btn btn-primary d-block mb-4 font-sm-14" href="cart.php">View Cart</a>
-                            <a class="btn btn-secondary d-block font-sm-14" href="checkout.php">Proceed to checkout</a>
+                            
+                        <button class="btn btn-secondary d-block font-sm-14" type="submit">Proceed to checkout</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -226,12 +218,13 @@
 
             <!-- Start Product Cart Added Popup -->
             <div id="open-addtocart-popup" class="addtocart-popup magnific-popup mfp-hide">
+                <?php if(isset($_SESSION['email'])){?>
                 <div class="addtocart-inner-content text-center">
                     <h4>Added to Cart Successfully</h4>
                     <p class="pro-img"><img class="img-fluid blur-up lazyload" src="assets/images/products/addtocart-popup.jpg" data-src="assets/images/products/addtocart-popup.jpg" alt="image" title="image" /></p>
                     <p class="modal-prod-name mb-1 font-15">Carb Fits Cigarette tiyer</p>
                     <p class="mb-1 font-13">Color: Black</p>
-                    <p class="font-13">Quantity: 1</p>
+                    <p class="font-13" id="productID"></p>
                     <div class="addcart-total">
                         There are <b>1</b> items in your cart
                         <div class="cart-total mt-2">
@@ -243,7 +236,28 @@
                         <a href="cart.php" class="btn btn-primary btn-block view-cart">View Cart</a>
                     </div>
                 </div>
+                <?php } 
+                else {
+                ?>
+                <div class="addtocart-inner-content text-center">
+                    <h4>Adding to Cart Not Possible while logged out</h4>
+                    <div class="button-action">
+                        <a href="login.php" class="btn btn-primary btn-block view-cart">login</a>
+                    </div>
+                </div>
+                <?php
+                }
+                ?>
+                
             </div>
+            <!-- script to add to cart -->
+            <script>
+                function openDiv(productID) {
+                    document.getElementById("").textContent = "product id = "+ productID;
+
+                }
+            </script>
+            <!-- end cart script -->
             <!-- End Product Cart Added Popup -->
 
             <!-- Start Product Quick View Popup -->

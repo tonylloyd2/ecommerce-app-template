@@ -2,8 +2,9 @@
 session_start();
 require "./backend/connector/conn.php";
 
-$sql_products = "SELECT * FROM product_information ORDER BY RAND()";
-$result_products = $conn->query($sql_products); 
+
+$query_products = "SELECT * FROM product_information order by rand()";
+$result_products = mysqli_query($conn, $query_products);
 
 if (isset($_SESSION['email'])){
   $session_var = $_SESSION['email'];
@@ -19,6 +20,7 @@ if (isset($_SESSION['email'])){
       $row = $result->fetch_assoc();
       $name = $row['firstname'] . " " . $row['lastname'];
       $image = $row['image'];
+      $user_cart_id = $row['id'];
   }
   
   
@@ -38,14 +40,16 @@ if (isset($_SESSION['email'])){
 
                     <!-- Start Slidershow Banner -->
                     <div class="slideshow slideshow-banner">
-                        <?php while ($row = mysqli_fetch_assoc($result_products)) {
-                            $image_url = './image/products/'.$row['image_primary']
+                        <?php 
+
+                        while ($row_products = mysqli_fetch_assoc($result_products)) { 
+                            $image_url = './image/products/'.$row_products['image_primary']
                          ?>
                         <div class="single-slide slider-height bg-style blur-up lazyload d-flex align-items-center" style="background-image:url('<?php echo $image_url ;?>');">
                             <div class="container slideshow-details">
-                                <h3><?php echo $row['item_name'] ?></h3>
+                                <h3><?php echo $row_products['item_name'] ?></h3>
                                 <p>High Performance & Outstanding Technology Combined</p>
-                                <a href="product-details.php?product_id=<?php echo $row['id']; ?>" class="btn btn-primary">Buy now!</a>
+                                <a href="product-details.php?product_id=<?php echo $row_products['id']; ?>" class="btn btn-primary">Buy now!</a>
                             </div>
                         </div>
 
@@ -111,10 +115,10 @@ if (isset($_SESSION['email'])){
                                                         </div>
                                                         <div class="product-action">
                                                             <ul>
-                                                                <li class="actions-addcart" data-toggle="tooltip" data-placement="top" title="add to cart"><a href="#open-addtocart-popup" class="btn open-addtocart-popup"><i class="icon ti-shopping-cart"></i></a></li>
-                                                                <li class="actions-quickview" data-toggle="tooltip" data-placement="top" title="quick view"><a href="#open-quickview-popup" class="btn open-quickview-popup"><i class="icon ti-zoom-in"></i></a></li>
-                                                                <li class="actions-wishlist" data-toggle="tooltip" data-placement="top" title="add to wishlist"><a href="#open-wishlist-popup" class="btn open-wishlist-popup"><i class="icon ti-heart"></i></a></li>
-                                                                <li class="actions-compare" data-toggle="tooltip" data-placement="top" title="add to compare"><a href="compare.php" class="btn"><i class="icon ti-control-shuffle"></i></a></li>
+                                                                
+                                                            <li class="actions-addcart"  data-placement="top" title="add to cart">
+                                                                    <a href="./backend/logics/addtocart.php?product_id=<?php echo $randomProduct['id']; ?>" 
+                                                                     class="btn "><i class="icon ti-shopping-cart"></i></a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -197,10 +201,10 @@ if (isset($_SESSION['email'])){
                                                         </div>
                                                         <div class="product-action">
                                                             <ul>
-                                                                <li class="actions-addcart" data-toggle="tooltip" data-placement="top" title="add to cart"><a href="#open-addtocart-popup" class="btn open-addtocart-popup"><i class="icon ti-shopping-cart"></i></a></li>
-                                                                <li class="actions-quickview" data-toggle="tooltip" data-placement="top" title="quick view"><a href="#open-quickview-popup" class="btn open-quickview-popup"><i class="icon ti-zoom-in"></i></a></li>
-                                                                <li class="actions-wishlist" data-toggle="tooltip" data-placement="top" title="add to wishlist"><a href="#open-wishlist-popup" class="btn open-wishlist-popup"><i class="icon ti-heart"></i></a></li>
-                                                                <li class="actions-compare" data-toggle="tooltip" data-placement="top" title="add to compare"><a href="compare.php" class="btn"><i class="icon ti-control-shuffle"></i></a></li>
+                                                                
+                                                            <li class="actions-addcart"  data-placement="top" title="add to cart">
+                                                                    <a href="./backend/logics/addtocart.php?product_id=<?php echo $randomProduct['id']; ?>" 
+                                                                     class="btn "><i class="icon ti-shopping-cart"></i></a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -277,13 +281,12 @@ if (isset($_SESSION['email'])){
                                                                 <img class="img-fluid blur-up lazyload product-imghover" src="<?php echo "./image/products/".$randomProduct["image_primary"]; ?>"
                                                                  data-src="<?php echo "./image/products/".$randomProduct["image_primary"]; ?>" alt="image" title="image" />
                                                             </a>
-                                                        </div>
-                                                        <div class="product-action">
+                                                        </div><div class="product-action">
                                                             <ul>
-                                                                <li class="actions-addcart" data-toggle="tooltip" data-placement="top" title="add to cart"><a href="#open-addtocart-popup" class="btn open-addtocart-popup"><i class="icon ti-shopping-cart"></i></a></li>
-                                                                <li class="actions-quickview" data-toggle="tooltip" data-placement="top" title="quick view"><a href="#open-quickview-popup" class="btn open-quickview-popup"><i class="icon ti-zoom-in"></i></a></li>
-                                                                <li class="actions-wishlist" data-toggle="tooltip" data-placement="top" title="add to wishlist"><a href="#open-wishlist-popup" class="btn open-wishlist-popup"><i class="icon ti-heart"></i></a></li>
-                                                                <li class="actions-compare" data-toggle="tooltip" data-placement="top" title="add to compare"><a href="compare.php" class="btn"><i class="icon ti-control-shuffle"></i></a></li>
+                                                                
+                                                            <li class="actions-addcart"  data-placement="top" title="add to cart">
+                                                                    <a href="./backend/logics/addtocart.php?product_id=<?php echo $randomProduct['id']; ?>" 
+                                                                     class="btn "><i class="icon ti-shopping-cart"></i></a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
